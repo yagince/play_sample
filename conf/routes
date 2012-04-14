@@ -5,9 +5,18 @@
 # Home page
 GET     /                           controllers.Application.index
 GET     /test1                      controllers.Application.test1
+GET     /hello/:id                  controllers.Application.hello(id:Int)
+GET     /hello                      controllers.Application.hello(id:Int ?= 1)
+GET     /jsonTest                   controllers.Application.jsonTest
+GET     /jsonList                   controllers.Application.jsonList
+GET     /jsonMap                    controllers.Application.jsonMap
+GET     /jsonReturn                    controllers.Application.jsonReturn
+GET     /jsonParse                    controllers.Application.jsonParse
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # User Entry
 GET    /user/entry                  controllers.UserController.initEntry
 POST   /user/entry                  controllers.UserController.submitEntry
+
