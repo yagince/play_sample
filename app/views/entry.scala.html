@@ -1,5 +1,22 @@
-@(title: String)
+@(userForm: Form[User])
+@import helper._
+@import views.BoostrapHelper._
 
-@main(title) {
-  This is UserEntry
+@main("ユーザー登録", nav = "signup") {
+<div class="container">
+    <h1>ユーザー情報登録</h1>
+    @helper.form(action = routes.UserController.submitEntry){
+    <fieldset>
+        <legend>必須項目を入力してください</legend>
+        @inputText(userForm("name"), '_label -> "name", '_help -> "input valid name.", '_error -> userForm.globalError)
+        @inputText(userForm("email"), '_label -> "email", '_help -> "input valid email.")
+        @inputPassword(userForm("password.main"), '_label -> "password", '_help -> "input password.")
+        @inputPassword(userForm("password.confirm"), '_label -> "confirm password", '_error -> userForm.error("password"))
+    </fieldset>
+    <div class="actions">
+        <input type="submit" class="btn primary" value="entry">
+        <a href="@routes.UserController.submitEntry" class="btn">cancel</a>
+    </div>
+    }
+</div>
 }
