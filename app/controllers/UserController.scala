@@ -17,7 +17,7 @@ object UserController extends Controller {
       "email" -> email,
       "password" -> tuple("main" -> text(minLength = 6), "confirm" -> text).verifying(
         // パスワードの入力ルール定義
-        "Passwords don't match", passwords => passwords._1 == passwords._2
+        "error.password.unmatch", passwords => passwords._1 == passwords._2
       )
     ) {
       // Userフォームバインド
