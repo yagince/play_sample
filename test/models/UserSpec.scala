@@ -16,13 +16,13 @@ class UserSpec extends Specification {
     }
 
     "should has name" in new sampleUser {
-      user.name must equalTo("hoge")
+      user.name must beEqualTo("hoge") // equalToでも同じ
     }
     "should has email" in new sampleUser {
-      user.email must equalTo("foo")
+      user.email must beEqualTo("foo")
     }
     "should has password" in new sampleUser {
-      user.password must equalTo("bar")
+      user.password must beEqualTo("bar")
     }
   }
 }
