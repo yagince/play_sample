@@ -1,7 +1,5 @@
 package models
 
-import anorm._
-
 /**
  * Created with IntelliJ IDEA.
  * User: yaginatsuki
@@ -10,4 +8,8 @@ import anorm._
  * To change this template use File | Settings | File Templates.
  */
 
-case class User(id: Pk[Long], name: String, email: String, password: String)
+case class User(var name: String,
+                var email: String,
+                var password: String) extends BaseEntity {
+  def this() = this("", "", "")
+}

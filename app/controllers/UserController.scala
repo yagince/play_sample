@@ -5,8 +5,11 @@ import play.api.db._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
-import models.User
-import anorm.NotAssigned
+import models.{CoreSchema, User}
+import scala.Some
+
+import org.squeryl.PrimitiveTypeMode._
+import org.squeryl.{Session}
 
 object UserController extends Controller {
 
@@ -21,7 +24,7 @@ object UserController extends Controller {
       )
     ) {
       // Userフォームバインド
-      (name, email, passwords) => User(NotAssigned, name, email, passwords._1)
+      (name, email, passwords) => User(name, email, passwords._1)
     } {
       // Usetフォームアンバインド
       user => Some(user.name, user.email, (user.password, ""))
@@ -44,7 +47,19 @@ object UserController extends Controller {
   def submitEntry = Action {implicit request =>
     userForm.bindFromRequest.fold(
       errors => BadRequest(views.html.entry(errors)),
-      user => { Ok(views.html.result(user))}
+      user => {
+        inTransaction {
+          CoreSchema.users.insert(user)
+          Redirect(routes.UserController.showEntry(user.id))
+        }
+      }
     )
+  }
+
+  def showEntry(id: Long) = Action {implicit request =>
+    inTransaction {
+      val user = CoreSchema.users.where(u => u.id === id).single
+      Ok(views.html.result(user))
+    }
   }
 }

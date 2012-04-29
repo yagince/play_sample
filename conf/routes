@@ -19,4 +19,5 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 # User Entry
 GET    /user/entry                  controllers.UserController.initEntry
 POST   /user/entry                  controllers.UserController.submitEntry
+GET    /user/entry/:id              controllers.UserController.showEntry(id:Long)
 
