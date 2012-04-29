@@ -1,7 +1,6 @@
 package models
 
-import org.specs2.mutable.Specification
-import org.specs2.specification._
+import org.specs2.mutable._
 
 class UserSpec extends Specification {
   /*
@@ -10,8 +9,10 @@ class UserSpec extends Specification {
   * */
   " attributes" should {
 
-    trait sampleUser extends Scope {
+    trait sampleUser extends org.specs2.mutable.BeforeAfter {
       val user = User("hoge", "foo", "bar")
+      def before = { println("-- Before") }
+      def after = { println("-- After") }
     }
 
     "should has name" in new sampleUser {
