@@ -1,0 +1,59 @@
+@()
+
+@import helper._
+@import controllers.routes.javascript._
+
+@main("Calc Test"){
+<html>
+<head>
+    <title>Home</title>
+    <link rel="shortcut icon" type="image/png" href="http://www.playframework.org/public/images/favicon.png">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.7.1.js")"></script>
+    @javascriptRouter("jsRoutes")(
+      CalcController.plus,
+      CalcController.minus
+    )
+</head>
+<body>
+<input type='text' id='num1'/>
+<input type='text' id='num2'/>
+</br>
+<input type='button' value='+' id='plusBtn' />
+<input type='button' value='-' id='minusBtn' />
+
+<script type="text/javascript" charset="utf-8">
+    var plus = function() {
+      var num1 = $('#num1').val();
+      var num2 = $('#num2').val();
+      jsRoutes.controllers.CalcController.plus(num1,num2).ajax({
+        success: function(data) {
+          $('#result').html(data)
+        },
+        error: function() {
+          alert("Error!")
+        }
+      })
+    };
+
+    var minus = function() {
+      var num1 = $('#num1').val();
+      var num2 = $('#num2').val();
+      jsRoutes.controllers.CalcController.minus(num1,num2).ajax({
+        success: function(data) {
+          $('#result').html(data)
+        },
+        error: function() {
+          alert("Error!")
+        }
+       })
+    };
+
+    $('#plusBtn').click(plus);
+    $('#minusBtn').click(minus);
+</script>
+
+<div id="result"></div>
+</body>
+</html>
+}
