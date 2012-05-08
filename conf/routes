@@ -25,3 +25,8 @@ GET    /user/entry/:id              controllers.UserController.showEntry(id:Long
 GET     /calc                    controllers.CalcController.index
 POST     /calc/plus                    controllers.CalcController.plus(first:Int, second:Int)
 GET     /calc/minus                    controllers.CalcController.minus(first:Int, second:Int)
+
+#pjax
+GET     /pjax/calc                    controllers.PjaxCalcController.index
+GET     /pjax/calc/plus               controllers.PjaxCalcController.plus(first:Int, second:Int)
+GET     /pjax/calc/minus              controllers.PjaxCalcController.minus(first:Int, second:Int)

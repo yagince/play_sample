@@ -30,7 +30,12 @@ class UserSpec extends Specification with BeforeExample {
 
   trait sampleUser extends org.specs2.mutable.BeforeAfter {
     lazy val user = User("hoge", "foo", "bar")
-    def before = { transaction{user.save} }
+    def before = {
+      transaction{
+        user.save
+        println(user.id)
+      }
+    }
     def after = { transaction{users.deleteWhere(u => u.id === user.id)} }
   }
 

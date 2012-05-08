@@ -1,0 +1,35 @@
+@(title: String)(content: Html)(implicit request: play.api.mvc.Request[AnyContent])
+
+@if(request.headers.keys("X-PJAX")) {
+<title>@title</title>
+@println(content)
+@content
+} else {
+@main(title){
+<div id="manual" class="wrapper">
+    <div id="main">
+        <h1><a data-pjax="#content" href="@routes.PjaxCalcController.index()">Simple DEMO</a></h1>
+        <h2>静的部分</h2>
+        <blockquote>
+            <p>描画時刻: <strong id="time"></strong></p>
+        </blockquote>
+
+        <h2>動的部分</h2>
+
+        <div id="content">
+            @content
+        </div>
+        <div id="result"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+
+    $('#time').text(new Date().toLocaleString())
+
+    $('a[data-pjax]').pjax();
+
+    })
+</script>
+}
+}

@@ -1,0 +1,37 @@
+@()(implicit request: play.api.mvc.Request[AnyContent])
+
+@import helper._
+@import controllers.routes.javascript._
+
+@javascriptRouter("jsRoutes")(
+  PjaxCalcController.plus,
+  PjaxCalcController.minus
+)
+
+@pjaxTemplate("pjax sample"){
+<input type='text' id='num1'/>
+<input type='text' id='num2'/>
+</br>
+<input type='button' value='+' id='plusBtn' />
+<input type='button' value='-' id='minusBtn' />
+
+<script type="text/javascript" charset="utf-8">
+    var plus = function() {
+      $.pjax({
+        url: jsRoutes.controllers.PjaxCalcController.plus($('#num1').val(), $('#num2').val()).url,
+        container: '#result'
+      })
+    };
+
+    var minus = function() {
+      $.pjax({
+        url: jsRoutes.controllers.PjaxCalcController.minus($('#num1').val(), $('#num2').val()).url,
+        container: "#result"
+      })
+    };
+
+    $('#plusBtn').click(plus);
+    $('#minusBtn').click(minus);
+</script>
+
+}

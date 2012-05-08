@@ -1,0 +1,5 @@
+@(result:Int)(implicit request: play.api.mvc.Request[AnyContent])
+
+@pjaxTemplate("result") {
+  <h1>@result</h1>
+}
